@@ -1,0 +1,99 @@
+DROP TABLE IF EXISTS Friend CASCADE;
+DROP TABLE IF EXISTS Ban CASCADE;
+DROP TABLE IF EXISTS Player CASCADE;
+DROP TABLE IF EXISTS Team CASCADE;
+DROP TABLE IF EXISTS Scrim CASCADE;
+DROP TABLE IF EXISTS Mode CASCADE;
+DROP TABLE IF EXISTS Title CASCADE;
+DROP TABLE IF EXISTS PlayerTitle CASCADE;
+
+
+
+CREATE TABLE Player(
+username VARCHAR(20) NOT NULL PRIMARY KEY,
+pwd TEXT NOT NULL,
+email TEXT NOT NULL,
+pp TEXT,
+admin BOOL DEFAULT false,
+ranking_points_1s INT DEFAULT 0,
+ranking_points_2s INT DEFAULT 0,
+ranking_points_3s INT DEFAULT 0);
+
+
+
+
+CREATE TABLE Friend(
+playerEntity VARCHAR(20) NOT NULL,
+friend VARCHAR(20) NOT NULL,
+CONSTRAINT pk_friend PRIMARY KEY (playerEntity, friend),
+CONSTRAINT fk_player FOREIGN KEY (playerEntity) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_friend FOREIGN KEY (playerEntity) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL);
+
+
+CREATE TABLE Ban(
+playerEntity VARCHAR(20) NOT NULL PRIMARY KEY,
+time DATE NOT NULL,
+CONSTRAINT fk_ban FOREIGN KEY (playerEntity) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+
+
+CREATE TABLE Team(
+team_name VARCHAR(26) NOT NULL PRIMARY KEY,
+team_logo TEXT,
+team_description VARCHAR(50),
+player_one VARCHAR(20),
+player_two VARCHAR(20),
+player_three VARCHAR(20),
+sub VARCHAR(20),
+second_sub VARCHAR(20),
+coach VARCHAR(20),
+manager VARCHAR(20),
+ranking_points INT DEFAULT 0,
+CONSTRAINT fk_p1 FOREIGN KEY (player_one) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_p2 FOREIGN KEY (player_two) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_p3 FOREIGN KEY (player_three) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_sub FOREIGN KEY (sub) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_coach FOREIGN KEY (coach) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_manager FOREIGN KEY (manager) REFERENCES Player(username) ON UPDATE CASCADE ON DELETE SET NULL);
+
+
+CREATE TABLE Mode(
+    mode_name TEXT PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE Scrim(
+scrim_id SERIAL PRIMARY KEY,
+team_one VARCHAR(26) NOT NULL,
+team_two VARCHAR(26),
+modeEntity TEXT,
+bo INT,
+elo INT,
+match_date DATE NOT NULL,
+hour TIME NOT NULL,
+duration TIME,
+description TEXT,
+CONSTRAINT fk_mode FOREIGN KEY (modeEntity) REFERENCES Mode(mode_name) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_t1 FOREIGN KEY (team_one) REFERENCES Team(team_name) ON UPDATE CASCADE ON DELETE SET NULL,
+CONSTRAINT fk_t2 FOREIGN KEY (team_two) REFERENCES Team(team_name) ON UPDATE CASCADE ON DELETE SET NULL);
+
+
+CREATE TABLE Title(
+title_name TEXT PRIMARY KEY NOT NULL,
+title_color TEXT NOT NULL,
+is_neon BOOL DEFAULT false
+);
+
+CREATE TABLE PlayerTitle (
+playerEntity VARCHAR(20) NOT NULL,
+title TEXT NOT NULL,
+use BOOL NOT NULL DEFAULT false,
+CONSTRAINT pk_playerTitle PRIMARY KEY (playerEntity, title)
+);
+
+
+
+--INSERT INTO Team VALUES('la famille coin coin', 'coin coin', null, null, null, null, null, null);
+
+--INSERT INTO Scrim VALUES('la famille coin coin', null, 2, 1700, '2025-01-05', '14:0:0', null, 'Venez vous traine pour les RLCS');
+
