@@ -30,8 +30,8 @@ public class ScrimEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "mode")
-    private ModeEntity modeEntity;
+    @JoinColumn(name = "modeentity")
+    private ModeEntity modeentity;
 
     @Column(name = "bo")
     private Integer bo;
@@ -77,12 +77,12 @@ public class ScrimEntity {
         this.teamEntityTwo = teamEntityTwo;
     }
 
-    public ModeEntity getMode() {
-        return modeEntity;
+    public ModeEntity getModeentity() {
+        return modeentity;
     }
 
-    public void setMode(ModeEntity modeEntity) {
-        this.modeEntity = modeEntity;
+    public void setModeentity(ModeEntity modeentity) {
+        this.modeentity = modeentity;
     }
 
     public Integer getBo() {

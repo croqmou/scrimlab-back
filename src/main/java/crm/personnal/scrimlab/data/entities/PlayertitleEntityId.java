@@ -3,7 +3,6 @@ package crm.personnal.scrimlab.data.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -11,22 +10,21 @@ import java.util.Objects;
 
 @Embeddable
 public class PlayertitleEntityId implements Serializable {
-    private static final long serialVersionUID = -8409375271530721218L;
-    @Size(max = 20)
+    private static final long serialVersionUID = 2189096570439358136L;
     @NotNull
-    @Column(name = "player", nullable = false, length = 20)
-    private String player;
+    @Column(name = "playerentity", nullable = false, length = Integer.MAX_VALUE)
+    private String playerentity;
 
     @NotNull
     @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
     private String title;
 
-    public String getPlayer() {
-        return player;
+    public String getPlayerentity() {
+        return playerentity;
     }
 
-    public void setPlayer(String player) {
-        this.player = player;
+    public void setPlayerentity(String playerentity) {
+        this.playerentity = playerentity;
     }
 
     public String getTitle() {
@@ -43,12 +41,12 @@ public class PlayertitleEntityId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         PlayertitleEntityId entity = (PlayertitleEntityId) o;
         return Objects.equals(this.title, entity.title) &&
-                Objects.equals(this.player, entity.player);
+                Objects.equals(this.playerentity, entity.playerentity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, player);
+        return Objects.hash(title, playerentity);
     }
 
 }

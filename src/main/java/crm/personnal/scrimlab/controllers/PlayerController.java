@@ -4,10 +4,7 @@ import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
 import crm.personnal.scrimlab.controllers.mappers.PlayerMapper;
 import crm.personnal.scrimlab.domain.PlayerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/players")
@@ -20,6 +17,7 @@ public class PlayerController {
         this.playerMapper = playerMapper;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping(path = "/add-player")
     public ResponseEntity<PlayerDTO> addPlayer(@RequestBody PlayerDTO playerDTO) {
         return ResponseEntity.ok(playerMapper.mapFromBO(

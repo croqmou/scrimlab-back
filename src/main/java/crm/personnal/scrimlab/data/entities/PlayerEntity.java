@@ -12,17 +12,17 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "player")
 public class PlayerEntity {
     @Id
+    @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
+    private String email;
+
     @Size(max = 20)
+    @NotNull
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
     @NotNull
-    @Column(name = "pwd", nullable = false, length = Integer.MAX_VALUE)
+    @Column(name = "pwd", nullable = false, length = Integer.MAX_VALUE) //TODO ⚠️ à hasher dans une vraie app
     private String pwd;
-
-    @NotNull
-    @Column(name = "email", nullable = false, length = Integer.MAX_VALUE)
-    private String email;
 
     @Column(name = "pp", length = Integer.MAX_VALUE)
     private String pp;
@@ -43,6 +43,14 @@ public class PlayerEntity {
     @Column(name = "ranking_points_3s")
     private Integer rankingPoints3s;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -57,14 +65,6 @@ public class PlayerEntity {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPp() {

@@ -8,8 +8,6 @@ import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.exceptions.UserAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
@@ -22,8 +20,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerBO addPlayer(PlayerBO playerBO) {
-        PlayerEntity res =  playerRepository.findByUsernameAndPwd(
-                playerBO.username(),
+        PlayerEntity res =  playerRepository.findByEmailAndPwd(
+                playerBO.email(),
                 playerBO.pwd()
         );
 

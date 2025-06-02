@@ -10,11 +10,11 @@ public class FriendEntity {
     @EmbeddedId
     private FriendEntityId id;
 
-    @MapsId("player")
+    @MapsId("playerentity")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "player", nullable = false)
-    private PlayerEntity playerEntity;
+    @JoinColumn(name = "playerentity", nullable = false)
+    private PlayerEntity playerentity;
 
     public FriendEntityId getId() {
         return id;
@@ -24,12 +24,12 @@ public class FriendEntity {
         this.id = id;
     }
 
-    public PlayerEntity getPlayer() {
-        return playerEntity;
+    public PlayerEntity getPlayerentity() {
+        return playerentity;
     }
 
-    public void setPlayer(PlayerEntity playerEntity) {
-        this.playerEntity = playerEntity;
+    public void setPlayerentity(PlayerEntity playerentity) {
+        this.playerentity = playerentity;
     }
 
 }

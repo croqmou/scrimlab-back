@@ -41,8 +41,7 @@ public class TeamEntity {
     @JoinColumn(name = "sub")
     private PlayerEntity sub;
 
-    @Size(max = 20)
-    @Column(name = "second_sub", length = 20)
+    @Column(name = "second_sub", length = Integer.MAX_VALUE)
     private String secondSub;
 
     @ManyToOne(fetch = FetchType.LAZY)

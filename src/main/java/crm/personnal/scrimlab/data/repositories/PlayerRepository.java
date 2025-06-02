@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<PlayerEntity, String> {
-    PlayerEntity findByUsernameAndPwd(String username, String pwd);
+    PlayerEntity findByEmailAndPwd(String email, String pwd);
 }
