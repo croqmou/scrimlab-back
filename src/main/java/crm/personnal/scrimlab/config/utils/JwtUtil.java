@@ -28,7 +28,6 @@ public class JwtUtil {
     public void init() {
         byte[] decodedKey = Base64.getDecoder().decode(jwtSecret);
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
-        System.out.println("Clé JWT chargée : " + Base64.getEncoder().encodeToString(decodedKey));
     }
 
 

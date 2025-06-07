@@ -25,14 +25,14 @@ public class PlayerEntityMapper implements Mapper<PlayerEntity, PlayerBO> {
     @Override
     public PlayerEntity mapFromBO(PlayerBO bo) {
         PlayerEntity newPlayerEntity = new PlayerEntity();
-        newPlayerEntity.setUsername(bo.username());
-        newPlayerEntity.setPwd(bo.pwd());
-        newPlayerEntity.setEmail(bo.email());
-        newPlayerEntity.setPp(bo.pp());
-        newPlayerEntity.setAdmin(bo.admin());
-        newPlayerEntity.setRankingPoints1s(bo.rankingPoints1s());
-        newPlayerEntity.setRankingPoints2s(bo.rankingPoints2s());
-        newPlayerEntity.setRankingPoints3s(bo.rankingPoints3s());
+        newPlayerEntity.setUsername(bo.getUsername());
+        newPlayerEntity.setPwd(bo.getPwd());
+        newPlayerEntity.setEmail(bo.getEmail());
+        newPlayerEntity.setPp(bo.getPp());
+        newPlayerEntity.setAdmin(bo.isAdmin());
+        newPlayerEntity.setRankingPoints1s(bo.getRankingPoints1s());
+        newPlayerEntity.setRankingPoints2s(bo.getRankingPoints2s());
+        newPlayerEntity.setRankingPoints3s(bo.getRankingPoints3s());
 
         return newPlayerEntity;
     }

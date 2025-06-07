@@ -7,7 +7,9 @@ import crm.personnal.scrimlab.controllers.mappers.PlayerMapper;
 import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.domain.AuthService;
+import crm.personnal.scrimlab.domain.bo.PlayerBO;
 import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,9 +29,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponseDTO login(PlayerDTO playerDTO) throws Exception {
-        boolean playerExists = playerRepository.existsByEmailAndPwd(playerDTO.email(), playerDTO.pwd());
+        PlayerEntity player = playerRepository.findByEmail(playerDTO.email());
 
-        if (!playerExists) {
+        if (player == null || !new BCryptPasswordEncoder().matches(playerDTO.pwd(), player.getPwd())) {
             throw new Exception(); //TODO Faire une exception personnalisée
         }
 
@@ -42,10 +44,17 @@ public class AuthServiceImpl implements AuthService {
         boolean playerAlreadyExists = playerRepository.existsById(playerDTO.email());
 
         if (playerAlreadyExists) {
-            throw new Exception(); //TODO Faire une exception personnalisée
+            throw new Exception("Player already exists"); // TODO: créer une exception custom
         }
 
-        playerRepository.save(playerEntityMapper.mapFromBO(playerMapper.mapToBO(playerDTO)));
+        // 👉 Hashage du mot de passe
+        String hashedPassword = new BCryptPasswordEncoder().encode(playerDTO.pwd());
+
+        // 👉 Mapper le DTO en BO, puis en entité
+        PlayerBO playerBO = playerMapper.mapToBO(playerDTO);
+        playerBO.setPwd(hashedPassword); // remplace le mot de passe en clair par le hashé
+
+        playerRepository.save(playerEntityMapper.mapFromBO(playerBO));
 
         String token = jwtUtil.generateToken(playerDTO.email());
         return new AuthResponseDTO(token, playerDTO);

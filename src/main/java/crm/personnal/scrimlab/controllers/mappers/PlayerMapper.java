@@ -25,14 +25,14 @@ public class PlayerMapper implements Mapper<PlayerDTO, PlayerBO> {
     @Override
     public PlayerDTO mapFromBO(PlayerBO playerBO) {
         return new PlayerDTO(
-                playerBO.username(),
-                playerBO.pwd(),
-                playerBO.email(),
-                playerBO.pp(),
-                playerBO.admin(),
-                playerBO.rankingPoints1s(),
-                playerBO.rankingPoints2s(),
-                playerBO.rankingPoints3s()
+                playerBO.getUsername(),
+                playerBO.getPwd(),
+                playerBO.getEmail(),
+                playerBO.getPp(),
+                playerBO.isAdmin(),
+                playerBO.getRankingPoints1s(),
+                playerBO.getRankingPoints2s(),
+                playerBO.getRankingPoints3s()
         );
     }
 }
