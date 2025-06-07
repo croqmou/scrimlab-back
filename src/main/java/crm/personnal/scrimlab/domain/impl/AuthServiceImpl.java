@@ -24,11 +24,24 @@ public class AuthServiceImpl implements AuthService {
         this.jwtUtil = jwtUtil;
     }
 
+
+    @Override
+    public AuthResponseDTO login(PlayerDTO playerDTO) throws Exception {
+        boolean playerExists = playerRepository.existsByEmailAndPwd(playerDTO.email(), playerDTO.pwd());
+
+        if (!playerExists) {
+            throw new Exception(); //TODO Faire une exception personnalisée
+        }
+
+        String token = jwtUtil.generateToken(playerDTO.email());
+        return new AuthResponseDTO(token, playerDTO);
+    }
+
     @Override
     public AuthResponseDTO register(PlayerDTO playerDTO) throws Exception {
-        PlayerEntity playerEntity = playerRepository.findById(playerDTO.email()).orElse(null);
+        boolean playerAlreadyExists = playerRepository.existsById(playerDTO.email());
 
-        if (playerEntity != null) {
+        if (playerAlreadyExists) {
             throw new Exception(); //TODO Faire une exception personnalisée
         }
 

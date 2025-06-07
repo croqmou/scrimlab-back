@@ -16,6 +16,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -27,15 +29,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        JwtRequestFilter jwtRequestFilter = new JwtRequestFilter(jwtUtil);
-
         http
+                .cors(withDefaults()) // ✅ Nécessaire pour activer ta config CORS
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()  // Seulement /auth/** est public
-                        .anyRequest().authenticated()             // Tout le reste est sécurisé
-                )
-                .csrf(csrf -> csrf.disable())                 // OK pour une API stateless
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                        .requestMatchers("/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                );
 
         return http.build();
     }

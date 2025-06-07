@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
-    private PlayerRepository playerRepository;
-    private PlayerEntityMapper playerEntityMapper;
+    private final PlayerRepository playerRepository;
+    private final PlayerEntityMapper playerEntityMapper;
 
     public PlayerServiceImpl(PlayerRepository playerRepository, PlayerEntityMapper playerEntityMapper) {
         this.playerRepository = playerRepository;

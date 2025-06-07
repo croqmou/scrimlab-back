@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
+    AuthResponseDTO login(PlayerDTO playerDTO) throws Exception;
+
     AuthResponseDTO register(PlayerDTO playerDTO) throws Exception;
 }
