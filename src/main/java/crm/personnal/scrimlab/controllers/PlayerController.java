@@ -17,12 +17,9 @@ public class PlayerController {
         this.playerMapper = playerMapper;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping(path = "/add-player")
-    public ResponseEntity<PlayerDTO> addPlayer(@RequestBody PlayerDTO playerDTO) {
-        return ResponseEntity.ok(playerMapper.mapFromBO(
-                playerService.addPlayer(playerMapper.mapToBO(playerDTO))
-        ));
+    public ResponseEntity<String> addPlayer() {
+        return ResponseEntity.ok("Tu es authentifié !");
 
     }
 }
