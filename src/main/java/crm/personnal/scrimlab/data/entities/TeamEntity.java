@@ -23,8 +23,8 @@ public class TeamEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "player_one")
-    private PlayerEntity playerEntityOne;
+    @JoinColumn(name = "captain")
+    private PlayerEntity captain;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
@@ -82,12 +82,12 @@ public class TeamEntity {
         this.teamDescription = teamDescription;
     }
 
-    public PlayerEntity getPlayerOne() {
-        return playerEntityOne;
+    public PlayerEntity getCaptain() {
+        return captain;
     }
 
-    public void setPlayerOne(PlayerEntity playerEntityOne) {
-        this.playerEntityOne = playerEntityOne;
+    public void setCaptain(PlayerEntity captain) {
+        this.captain = captain;
     }
 
     public PlayerEntity getPlayerTwo() {
