@@ -41,8 +41,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = User.withUsername(username)
-                    .password("") // inutile ici
-                    .authorities("USER")
+                    .password("") // inutile
+                    .authorities("NONE") // ou même "NONE", ce sera ignoré
                     .build();
 
             if (jwtUtil.validateToken(token, username)) {

@@ -41,8 +41,10 @@ public class TeamEntity {
     @JoinColumn(name = "sub")
     private PlayerEntity sub;
 
-    @Column(name = "second_sub", length = Integer.MAX_VALUE)
-    private String secondSub;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "second_sub")
+    private PlayerEntity secondSub;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
@@ -114,11 +116,27 @@ public class TeamEntity {
         this.sub = sub;
     }
 
-    public String getSecondSub() {
+    public PlayerEntity getPlayerEntityTwo() {
+        return playerEntityTwo;
+    }
+
+    public void setPlayerEntityTwo(PlayerEntity playerEntityTwo) {
+        this.playerEntityTwo = playerEntityTwo;
+    }
+
+    public PlayerEntity getPlayerEntityThree() {
+        return playerEntityThree;
+    }
+
+    public void setPlayerEntityThree(PlayerEntity playerEntityThree) {
+        this.playerEntityThree = playerEntityThree;
+    }
+
+    public PlayerEntity getSecondSub() {
         return secondSub;
     }
 
-    public void setSecondSub(String secondSub) {
+    public void setSecondSub(PlayerEntity secondSub) {
         this.secondSub = secondSub;
     }
 
