@@ -33,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7); // enlève "Bearer " (7 caractères)
             try {
-                username = jwtUtil.extractUsername(token);
+                username = jwtUtil.extractEmail(token);
             } catch (Exception e) {
                 logger.warn("Token invalide ou expiré");
             }

@@ -72,4 +72,8 @@ public class TeamBO implements BaseBO {
     public Integer getRankingPoints() {
         return rankingPoints;
     }
+
+    public void setCaptain(PlayerBO captain) {
+        this.captain = captain;
+    }
 }

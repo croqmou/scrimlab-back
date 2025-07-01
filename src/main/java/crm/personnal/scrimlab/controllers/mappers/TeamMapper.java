@@ -36,13 +36,13 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
                 teamBO.getTeamName(),
                 teamBO.getTeamLogo(),
                 teamBO.getTeamDescription(),
-                teamBO.getCaptain().getEmail(),
-                teamBO.getPlayerEntityTwo().getEmail(),
-                teamBO.getPlayerEntityThree().getEmail(),
-                teamBO.getSub().getEmail(),
-                teamBO.getSecondSub().getEmail(),
-                teamBO.getCoach().getEmail(),
-                teamBO.getManager().getEmail(),
+                teamBO.getCaptain() == null ? null : teamBO.getCaptain().getEmail(),
+                teamBO.getPlayerEntityTwo() == null ? null : teamBO.getPlayerEntityTwo().getEmail(),
+                teamBO.getPlayerEntityThree() == null ? null : teamBO.getPlayerEntityThree().getEmail(),
+                teamBO.getSub() == null ? null : teamBO.getSub().getEmail(),
+                teamBO.getSecondSub() == null ? null : teamBO.getSecondSub().getEmail(),
+                teamBO.getCoach() == null ? null : teamBO.getCoach().getEmail(),
+                teamBO.getManager() == null ? null : teamBO.getManager().getEmail(),
                 teamBO.getRankingPoints()
         );
     }

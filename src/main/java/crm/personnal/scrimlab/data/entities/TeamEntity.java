@@ -21,7 +21,7 @@ public class TeamEntity {
     @Column(name = "team_description", length = 50)
     private String teamDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "captain")
     private PlayerEntity captain;
@@ -163,5 +163,4 @@ public class TeamEntity {
     public void setRankingPoints(Integer rankingPoints) {
         this.rankingPoints = rankingPoints;
     }
-
 }

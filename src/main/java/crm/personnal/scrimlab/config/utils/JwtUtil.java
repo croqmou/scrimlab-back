@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
@@ -26,7 +25,6 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        byte[] decodedKey = Base64.getDecoder().decode(jwtSecret);
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
@@ -43,7 +41,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         try {
             return extractAllClaims(token).getSubject();
         } catch (Exception e) {
@@ -58,7 +56,7 @@ public class JwtUtil {
     }
 
     public boolean validateToken(String token, String username) {
-        final String tokenUsername = extractUsername(token);
+        final String tokenUsername = extractEmail(token);
         return (tokenUsername.equals(username) && !isTokenExpired(token));
     }
 

@@ -21,12 +21,12 @@ public class TeamEntityMapper implements Mapper<TeamEntity, TeamBO> {
                 teamEntity.getTeamLogo(),
                 teamEntity.getTeamDescription(),
                 playerEntityMapper.mapToBO(teamEntity.getCaptain()),
-                playerEntityMapper.mapToBO(teamEntity.getPlayerEntityTwo()),
-                playerEntityMapper.mapToBO(teamEntity.getPlayerEntityThree()),
-                playerEntityMapper.mapToBO(teamEntity.getSub()),
-                playerEntityMapper.mapToBO(teamEntity.getSecondSub()),
-                playerEntityMapper.mapToBO(teamEntity.getCoach()),
-                playerEntityMapper.mapToBO(teamEntity.getManager()),
+                teamEntity.getPlayerEntityTwo() == null ? null : playerEntityMapper.mapToBO(teamEntity.getPlayerEntityTwo()),
+                teamEntity.getPlayerThree() == null ? null : playerEntityMapper.mapToBO(teamEntity.getPlayerThree()),
+                teamEntity.getSub() == null ? null : playerEntityMapper.mapToBO(teamEntity.getSub()),
+                teamEntity.getSecondSub() == null ? null : playerEntityMapper.mapToBO(teamEntity.getSecondSub()),
+                teamEntity.getCoach() == null ? null : playerEntityMapper.mapToBO(teamEntity.getCoach()),
+                teamEntity.getManager() == null ? null : playerEntityMapper.mapToBO(teamEntity.getManager()),
                 teamEntity.getRankingPoints()
         );
     }
