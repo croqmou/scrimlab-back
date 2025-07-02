@@ -22,7 +22,7 @@ public class FileUploadController {
     private static final String UPLOAD_DIR = "../uploads/teams-logos/";
 
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Map<String, String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException { //TODO modifier le nom et le lien pour que ca soit juste pour les teams
 
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Fichier vide"));
