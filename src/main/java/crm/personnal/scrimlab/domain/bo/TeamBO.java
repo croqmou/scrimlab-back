@@ -14,8 +14,11 @@ public class TeamBO implements BaseBO {
     private PlayerBO coach;
     private PlayerBO manager;
     private Integer rankingPoints;
+    private Integer teamGoals;
+    private Integer teamWins;
+    private Integer teamLoses;
 
-    public TeamBO(String teamName, String teamLogo, String teamDescription, PlayerBO captain, PlayerBO playerEntityTwo, PlayerBO playerEntityThree, PlayerBO sub, PlayerBO secondSub, PlayerBO coach, PlayerBO manager, Integer rankingPoints) {
+    public TeamBO(String teamName, String teamLogo, String teamDescription, PlayerBO captain, PlayerBO playerEntityTwo, PlayerBO playerEntityThree, PlayerBO sub, PlayerBO secondSub, PlayerBO coach, PlayerBO manager, Integer rankingPoints, Integer teamGoals, Integer teamWins, Integer teamLoses) {
         this.teamName = teamName;
         this.teamLogo = teamLogo;
         this.teamDescription = teamDescription;
@@ -27,6 +30,9 @@ public class TeamBO implements BaseBO {
         this.coach = coach;
         this.manager = manager;
         this.rankingPoints = rankingPoints;
+        this.teamGoals = teamGoals;
+        this.teamWins = teamWins;
+        this.teamLoses = teamLoses;
     }
 
     public String getTeamName() {
@@ -71,6 +77,18 @@ public class TeamBO implements BaseBO {
 
     public Integer getRankingPoints() {
         return rankingPoints;
+    }
+
+    public Integer getTeamGoals() {
+        return teamGoals;
+    }
+
+    public Integer getTeamWins() {
+        return teamWins;
+    }
+
+    public Integer getTeamLoses() {
+        return teamLoses;
     }
 
     public void setCaptain(PlayerBO captain) {

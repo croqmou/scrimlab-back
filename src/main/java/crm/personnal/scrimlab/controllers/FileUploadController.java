@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequestMapping("/files")
 public class FileUploadController {
 
-    private static final String UPLOAD_DIR = "../uploads/teams-logos/";
+    private static final String UPLOAD_DIR = "../scrimlab-front/src/assets/img/teams-logos";
 
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException { //TODO modifier le nom et le lien pour que ca soit juste pour les teams

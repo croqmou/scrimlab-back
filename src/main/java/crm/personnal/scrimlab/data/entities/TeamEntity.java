@@ -60,6 +60,42 @@ public class TeamEntity {
     @Column(name = "ranking_points")
     private Integer rankingPoints;
 
+    @ColumnDefault("0")
+    @Column(name = "team_goals")
+    private Integer teamGoals;
+
+    @ColumnDefault("0")
+    @Column(name = "team_wins")
+    private Integer teamWins;
+
+    @ColumnDefault("0")
+    @Column(name = "team_loses")
+    private Integer teamLoses;
+
+    public Integer getTeamLoses() {
+        return teamLoses;
+    }
+
+    public void setTeamLoses(Integer teamLoses) {
+        this.teamLoses = teamLoses;
+    }
+
+    public Integer getTeamWins() {
+        return teamWins;
+    }
+
+    public void setTeamWins(Integer teamWins) {
+        this.teamWins = teamWins;
+    }
+
+    public Integer getTeamGoals() {
+        return teamGoals;
+    }
+
+    public void setTeamGoals(Integer teamGoals) {
+        this.teamGoals = teamGoals;
+    }
+
     public String getTeamName() {
         return teamName;
     }

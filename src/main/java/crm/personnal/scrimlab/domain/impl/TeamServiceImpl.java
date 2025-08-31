@@ -1,15 +1,15 @@
 package crm.personnal.scrimlab.domain.impl;
 
-import crm.personnal.scrimlab.config.utils.JwtUtil;
 import crm.personnal.scrimlab.data.entities.TeamEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.data.repositories.TeamRepository;
 import crm.personnal.scrimlab.domain.TeamService;
-import crm.personnal.scrimlab.domain.bo.PlayerBO;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.domain.mappers.TeamEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -49,7 +49,15 @@ public class TeamServiceImpl implements TeamService {
         teamEntity.setCoach(null);
         teamEntity.setManager(null);
         teamEntity.setRankingPoints(0);
+        teamEntity.setTeamGoals(0);
+        teamEntity.setTeamWins(0);
+        teamEntity.setTeamLoses(0);
 
         return teamEntityMapper.mapToBO(teamRepository.save(teamEntity));
+    }
+
+    @Override
+    public Page<TeamBO> getAllTeams(Pageable pageable) {
+        return teamRepository.findAll(pageable).map(teamEntityMapper::mapToBO);
     }
 }

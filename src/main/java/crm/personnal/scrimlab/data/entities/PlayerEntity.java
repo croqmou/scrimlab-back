@@ -43,6 +43,42 @@ public class PlayerEntity {
     @Column(name = "ranking_points_3s")
     private Integer rankingPoints3s;
 
+    @ColumnDefault("0")
+    @Column(name = "player_goals")
+    private Integer playerGoals;
+
+    @ColumnDefault("0")
+    @Column(name = "player_wins")
+    private Integer playerWins;
+
+    @ColumnDefault("0")
+    @Column(name = "player_loses")
+    private Integer playerLoses;
+
+    public Integer getPlayerLoses() {
+        return playerLoses;
+    }
+
+    public void setPlayerLoses(Integer playerLoses) {
+        this.playerLoses = playerLoses;
+    }
+
+    public Integer getPlayerWins() {
+        return playerWins;
+    }
+
+    public void setPlayerWins(Integer playerWins) {
+        this.playerWins = playerWins;
+    }
+
+    public Integer getPlayerGoals() {
+        return playerGoals;
+    }
+
+    public void setPlayerGoals(Integer playerGoals) {
+        this.playerGoals = playerGoals;
+    }
+
     public String getEmail() {
         return email;
     }

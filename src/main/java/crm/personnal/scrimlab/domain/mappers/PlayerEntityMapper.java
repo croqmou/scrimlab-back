@@ -16,6 +16,9 @@ public class PlayerEntityMapper implements Mapper<PlayerEntity, PlayerBO> {
                 userEntity.getEmail(),
                 userEntity.getPp(),
                 userEntity.getAdmin(),
+                userEntity.getPlayerGoals(),
+                userEntity.getPlayerWins(),
+                userEntity.getPlayerLoses(),
                 userEntity.getRankingPoints1s(),
                 userEntity.getRankingPoints2s(),
                 userEntity.getRankingPoints3s()

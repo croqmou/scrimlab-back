@@ -17,6 +17,9 @@ public class PlayerMapper implements InputMapper<PlayerDTO, PlayerBO> {
                 entity.email(),
                 entity.pp(),
                 entity.admin(),
+                entity.playerGoals(),
+                entity.playerWins(),
+                entity.playerLoses(),
                 entity.rankingPoints1s(),
                 entity.rankingPoints2s(),
                 entity.rankingPoints3s()

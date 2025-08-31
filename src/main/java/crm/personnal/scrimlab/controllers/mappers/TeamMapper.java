@@ -19,14 +19,17 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
                 entity.teamName(),
                 entity.teamLogo(),
                 entity.teamDescription(),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.captain(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityTwo(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityThree(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.sub(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.secondSub(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.coach(), null, false, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.manager(), null, false, 0, 0, 0)),
-                entity.rankingPoints()
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.captain(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityTwo(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityThree(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.sub(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.secondSub(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.coach(), null, false,0,0,0, 0, 0, 0)),
+                playerMapper.mapToBO(new PlayerDTO(null, null, entity.manager(), null, false,0,0,0, 0, 0, 0)),
+                entity.rankingPoints(),
+                entity.teamGoals(),
+                entity.teamWins(),
+                entity.teamLoses()
         );
     }
 
@@ -43,7 +46,10 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
                 teamBO.getSecondSub() == null ? null : teamBO.getSecondSub().getEmail(),
                 teamBO.getCoach() == null ? null : teamBO.getCoach().getEmail(),
                 teamBO.getManager() == null ? null : teamBO.getManager().getEmail(),
-                teamBO.getRankingPoints()
+                teamBO.getRankingPoints(),
+                teamBO.getTeamGoals(),
+                teamBO.getTeamWins(),
+                teamBO.getTeamLoses()
         );
     }
 }

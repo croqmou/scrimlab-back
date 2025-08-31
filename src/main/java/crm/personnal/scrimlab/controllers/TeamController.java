@@ -6,15 +6,8 @@ import crm.personnal.scrimlab.domain.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Map;
-import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/teams")
@@ -30,5 +23,10 @@ public class TeamController {
     public ResponseEntity<TeamDTO> addTeam(@RequestBody TeamDTO teamDTO) throws Exception {
         return ResponseEntity.ok(teamMapper.mapFromBO(
                 teamService.addTeam(teamMapper.mapToBO(teamDTO))));
+    }
+
+    @GetMapping(path = "/getAll")
+    public ResponseEntity<Page<TeamDTO>> getAllTeams(Pageable pageable) {
+        return ResponseEntity.ok(teamService.getAllTeams(pageable).map(teamMapper::mapFromBO));
     }
 }

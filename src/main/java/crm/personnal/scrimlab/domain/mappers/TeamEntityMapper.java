@@ -27,7 +27,10 @@ public class TeamEntityMapper implements Mapper<TeamEntity, TeamBO> {
                 teamEntity.getSecondSub() == null ? null : playerEntityMapper.mapToBO(teamEntity.getSecondSub()),
                 teamEntity.getCoach() == null ? null : playerEntityMapper.mapToBO(teamEntity.getCoach()),
                 teamEntity.getManager() == null ? null : playerEntityMapper.mapToBO(teamEntity.getManager()),
-                teamEntity.getRankingPoints()
+                teamEntity.getRankingPoints(),
+                teamEntity.getTeamGoals(),
+                teamEntity.getTeamWins(),
+                teamEntity.getTeamLoses()
         );
     }
 
