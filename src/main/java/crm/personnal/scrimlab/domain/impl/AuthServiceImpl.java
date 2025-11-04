@@ -12,6 +12,8 @@ import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthServiceImpl implements AuthService {
     private final PlayerRepository playerRepository;
@@ -29,9 +31,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponseDTO login(PlayerDTO playerDTO) throws Exception {
-        PlayerEntity player = playerRepository.findByEmail(playerDTO.email());
+        Optional<PlayerEntity> player = playerRepository.findByEmail(playerDTO.email());
 
-        if (player == null || !new BCryptPasswordEncoder().matches(playerDTO.pwd(), player.getPwd())) {
+        if (player.isEmpty() || !new BCryptPasswordEncoder().matches(playerDTO.pwd(), player.get().getPwd())) {
             throw new Exception(); //TODO Faire une exception personnalisée
         }
 

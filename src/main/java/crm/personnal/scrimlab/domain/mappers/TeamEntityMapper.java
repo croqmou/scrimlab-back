@@ -41,13 +41,13 @@ public class TeamEntityMapper implements Mapper<TeamEntity, TeamBO> {
         newTeamEntity.setTeamName(bo.getTeamName());
         newTeamEntity.setTeamLogo(bo.getTeamLogo());
         newTeamEntity.setTeamDescription(bo.getTeamDescription());
-        newTeamEntity.setCaptain(playerEntityMapper.mapFromBO(bo.getCaptain()));
-        newTeamEntity.setPlayerTwo(playerEntityMapper.mapFromBO(bo.getPlayerEntityTwo()));
-        newTeamEntity.setPlayerThree(playerEntityMapper.mapFromBO(bo.getPlayerEntityThree()));
-        newTeamEntity.setSub(playerEntityMapper.mapFromBO(bo.getSub()));
-        newTeamEntity.setSecondSub(playerEntityMapper.mapFromBO(bo.getSecondSub()));
-        newTeamEntity.setCoach(playerEntityMapper.mapFromBO(bo.getCoach()));
-        newTeamEntity.setManager(playerEntityMapper.mapFromBO(bo.getManager()));
+        newTeamEntity.setCaptain(null);
+        newTeamEntity.setPlayerTwo(null);
+        newTeamEntity.setPlayerThree(null);
+        newTeamEntity.setSub(null);
+        newTeamEntity.setSecondSub(null);
+        newTeamEntity.setCoach(null);
+        newTeamEntity.setManager(null);
 
         return newTeamEntity;
     }

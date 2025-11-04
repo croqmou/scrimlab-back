@@ -1,5 +1,6 @@
 package crm.personnal.scrimlab.domain.impl;
 
+import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import crm.personnal.scrimlab.data.entities.TeamEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.data.repositories.TeamRepository;
@@ -23,35 +24,19 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    @Autowired
-    private PlayerEntityMapper  playerEntityMapper;
 
     @Override
-    public TeamBO addTeam(TeamBO teamBO) throws Exception {
-
-       teamBO.setCaptain(playerEntityMapper.mapToBO //TODO doit retourner un optional
-               (playerRepository.getReferenceById(
-                       teamBO.getCaptain().getEmail()
-               ))
-       );
+    public TeamBO createTeam(TeamBO teamBO) throws Exception {
 
         if (teamRepository.existsById(teamBO.getTeamName())) {
-            throw new Exception(); //TODO Faire une exception personnalisée
+            throw new Exception("Team already exists"); // TODO faire une exception personnalisée
         }
 
+        PlayerEntity captain = playerRepository.findById(teamBO.getCaptain().getEmail())
+                .orElseThrow(() -> new Exception("Captain not found")); // TODO faire une exception personnalisée
+
         TeamEntity teamEntity = teamEntityMapper.mapFromBO(teamBO);
-
-
-        teamEntity.setPlayerTwo(null);
-        teamEntity.setPlayerThree(null);
-        teamEntity.setSub(null);
-        teamEntity.setSecondSub(null);
-        teamEntity.setCoach(null);
-        teamEntity.setManager(null);
-        teamEntity.setRankingPoints(0);
-        teamEntity.setTeamGoals(0);
-        teamEntity.setTeamWins(0);
-        teamEntity.setTeamLoses(0);
+        teamEntity.setCaptain(captain);
 
         return teamEntityMapper.mapToBO(teamRepository.save(teamEntity));
     }

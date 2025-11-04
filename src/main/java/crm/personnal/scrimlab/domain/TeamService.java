@@ -7,6 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 @Service
 public interface TeamService {
-    TeamBO addTeam(TeamBO teamBO) throws Exception;
+    TeamBO createTeam(TeamBO teamBO) throws Exception;
     Page<TeamBO> getAllTeams(Pageable pageable);
 }

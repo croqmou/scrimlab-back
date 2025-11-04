@@ -4,7 +4,9 @@ import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PlayerRepository extends JpaRepository<PlayerEntity, String> {
-    PlayerEntity findByEmail(String email);
+    Optional<PlayerEntity> findByEmail(String email);
 }

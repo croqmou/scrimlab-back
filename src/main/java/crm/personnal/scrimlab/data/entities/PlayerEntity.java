@@ -33,27 +33,27 @@ public class PlayerEntity {
 
     @ColumnDefault("0")
     @Column(name = "ranking_points_1s")
-    private Integer rankingPoints1s;
+    private Integer rankingPoints1s = 0;
 
     @ColumnDefault("0")
     @Column(name = "ranking_points_2s")
-    private Integer rankingPoints2s;
+    private Integer rankingPoints2s = 0;
 
     @ColumnDefault("0")
     @Column(name = "ranking_points_3s")
-    private Integer rankingPoints3s;
+    private Integer rankingPoints3s = 0;
 
     @ColumnDefault("0")
     @Column(name = "player_goals")
-    private Integer playerGoals;
+    private Integer playerGoals = 0;
 
     @ColumnDefault("0")
     @Column(name = "player_wins")
-    private Integer playerWins;
+    private Integer playerWins = 0;
 
     @ColumnDefault("0")
     @Column(name = "player_loses")
-    private Integer playerLoses;
+    private Integer playerLoses = 0;
 
     public Integer getPlayerLoses() {
         return playerLoses;

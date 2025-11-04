@@ -20,9 +20,9 @@ public class TeamController {
     private TeamMapper teamMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<TeamDTO> addTeam(@RequestBody TeamDTO teamDTO) throws Exception {
+    public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) throws Exception {
         return ResponseEntity.ok(teamMapper.mapFromBO(
-                teamService.addTeam(teamMapper.mapToBO(teamDTO))));
+                teamService.createTeam(teamMapper.mapToBO(teamDTO))));
     }
 
     @GetMapping(path = "/getAll")
