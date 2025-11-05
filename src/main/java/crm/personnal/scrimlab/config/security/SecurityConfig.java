@@ -1,7 +1,6 @@
 package crm.personnal.scrimlab.config.security;
 
 import crm.personnal.scrimlab.config.utils.JwtRequestFilter;
-import crm.personnal.scrimlab.config.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,11 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,10 +18,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtUtil jwtUtil;
+    private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    // ✅ On injecte directement le filtre (Spring gère ses dépendances)
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Bean
@@ -39,10 +34,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/**",
                                 "/files/**",
-                                "/teams/getAll").permitAll()  // login, register etc. sont publics
-                        .anyRequest().authenticated()             // tout le reste nécessite juste d'être connecté
+                                "/teams/getAll"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtRequestFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                // ✅ Ici on injecte le bean plutôt que de faire "new JwtRequestFilter(...)"
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
