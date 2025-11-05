@@ -36,7 +36,10 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()  // login, register etc. sont publics
+                        .requestMatchers(
+                                "/auth/**",
+                                "/files/**",
+                                "/teams/getAll").permitAll()  // login, register etc. sont publics
                         .anyRequest().authenticated()             // tout le reste nécessite juste d'être connecté
                 )
                 .addFilterBefore(new JwtRequestFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
