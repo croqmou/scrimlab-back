@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<PlayerEntity> player = playerRepository.findByEmail(playerDTO.email());
 
         if (player.isEmpty() || !new BCryptPasswordEncoder().matches(playerDTO.pwd(), player.get().getPwd())) {
-            throw new LoginOrPasswordIncorrectException("Login or password incorrect");
+            throw new LoginOrPasswordIncorrectException("Email or password incorrect");
         }
 
         String token = jwtUtil.generateToken(playerDTO.email());
