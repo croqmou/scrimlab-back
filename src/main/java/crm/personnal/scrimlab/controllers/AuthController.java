@@ -4,6 +4,8 @@ import crm.personnal.scrimlab.config.domain.TokenBlacklistService;
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
 import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
 import crm.personnal.scrimlab.domain.AuthService;
+import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
+import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,24 +24,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody PlayerDTO playerDTO) throws Exception {
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody PlayerDTO playerDTO) throws LoginOrPasswordIncorrectException {
         return ResponseEntity.ok(authService.login(playerDTO));
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            tokenBlacklistService.blacklistToken(token);
-        }
-
+        authService.logout(request);
         return ResponseEntity.ok().body("Logged out successfully");
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody PlayerDTO playerDTO) throws Exception {
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody PlayerDTO playerDTO) throws PlayerAlreadyExistsException {
         return ResponseEntity.ok(authService.register(playerDTO));
     }
 }

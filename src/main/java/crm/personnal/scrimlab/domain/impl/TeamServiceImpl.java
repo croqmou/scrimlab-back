@@ -8,6 +8,8 @@ import crm.personnal.scrimlab.domain.TeamService;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.domain.mappers.TeamEntityMapper;
+import crm.personnal.scrimlab.exceptions.CaptainNotFoundException;
+import crm.personnal.scrimlab.exceptions.TeamAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +28,14 @@ public class TeamServiceImpl implements TeamService {
 
 
     @Override
-    public TeamBO createTeam(TeamBO teamBO) throws Exception {
+    public TeamBO createTeam(TeamBO teamBO) throws TeamAlreadyExistsException, CaptainNotFoundException {
 
         if (teamRepository.existsById(teamBO.getTeamName())) {
-            throw new Exception("Team already exists"); // TODO faire une exception personnalisée
+            throw new TeamAlreadyExistsException("Team already exists");
         }
 
         PlayerEntity captain = playerRepository.findById(teamBO.getCaptain().getEmail())
-                .orElseThrow(() -> new Exception("Captain not found")); // TODO faire une exception personnalisée
+                .orElseThrow(() -> new CaptainNotFoundException("Captain not found"));
 
         TeamEntity teamEntity = teamEntityMapper.mapFromBO(teamBO);
         teamEntity.setCaptain(captain);

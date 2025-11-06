@@ -3,6 +3,8 @@ package crm.personnal.scrimlab.controllers;
 import crm.personnal.scrimlab.controllers.dto.TeamDTO;
 import crm.personnal.scrimlab.controllers.mappers.TeamMapper;
 import crm.personnal.scrimlab.domain.TeamService;
+import crm.personnal.scrimlab.exceptions.CaptainNotFoundException;
+import crm.personnal.scrimlab.exceptions.TeamAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class TeamController {
     private TeamMapper teamMapper;
 
     @PostMapping("/create")
-    public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) throws Exception {
+    public ResponseEntity<TeamDTO> createTeam(@RequestBody TeamDTO teamDTO) throws TeamAlreadyExistsException, CaptainNotFoundException {
         return ResponseEntity.ok(teamMapper.mapFromBO(
                 teamService.createTeam(teamMapper.mapToBO(teamDTO))));
     }
