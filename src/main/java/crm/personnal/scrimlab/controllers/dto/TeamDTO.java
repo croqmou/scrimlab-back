@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 public record TeamDTO(
         String teamName,
         String teamLogo,
+        String teamBanner,
         String teamDescription,
         String captain,
         String playerEntityTwo,

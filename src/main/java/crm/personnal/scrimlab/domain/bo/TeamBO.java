@@ -5,6 +5,7 @@ import crm.personnal.scrimlab.config.domain.BaseBO;
 public class TeamBO implements BaseBO {
     private String teamName;
     private String teamLogo;
+    private String teamBanner;
     private String teamDescription;
     private PlayerBO captain;
     private PlayerBO playerEntityTwo;
@@ -18,9 +19,10 @@ public class TeamBO implements BaseBO {
     private Integer teamWins;
     private Integer teamLoses;
 
-    public TeamBO(String teamName, String teamLogo, String teamDescription, PlayerBO captain, PlayerBO playerEntityTwo, PlayerBO playerEntityThree, PlayerBO sub, PlayerBO secondSub, PlayerBO coach, PlayerBO manager, Integer rankingPoints, Integer teamGoals, Integer teamWins, Integer teamLoses) {
+    public TeamBO(String teamName, String teamLogo, String teamBanner, String teamDescription, PlayerBO captain, PlayerBO playerEntityTwo, PlayerBO playerEntityThree, PlayerBO sub, PlayerBO secondSub, PlayerBO coach, PlayerBO manager, Integer rankingPoints, Integer teamGoals, Integer teamWins, Integer teamLoses) {
         this.teamName = teamName;
         this.teamLogo = teamLogo;
+        this.teamBanner = teamBanner;
         this.teamDescription = teamDescription;
         this.captain = captain;
         this.playerEntityTwo = playerEntityTwo;
@@ -33,6 +35,10 @@ public class TeamBO implements BaseBO {
         this.teamGoals = teamGoals;
         this.teamWins = teamWins;
         this.teamLoses = teamLoses;
+    }
+
+    public String getTeamBanner() {
+        return teamBanner;
     }
 
     public String getTeamName() {

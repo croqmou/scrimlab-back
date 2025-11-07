@@ -17,17 +17,35 @@ import java.util.UUID;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    private static final String UPLOAD_DIR = "../scrimlab-front/src/assets/img/teams-logos";
+    private static final String UPLOAD_DIR_TEAM_LOGO = "../scrimlab-front/src/assets/img/teams-logos";
+    private static final String UPLOAD_DIR_TEAM_BANNER = "../scrimlab-front/src/assets/img/teams-banners";
 
     @Override
-    public Map<String, String> handleFileUpload(MultipartFile file) throws IOException, FileEmptyException {
+    public Map<String, String> handleFileUploadTeamLogo(MultipartFile file) throws IOException, FileEmptyException {
         if (file.isEmpty()) {
             throw new FileEmptyException("File is empty");
         }
 
         String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-        Path uploadPath = Paths.get(UPLOAD_DIR);
+        Path uploadPath = Paths.get(UPLOAD_DIR_TEAM_LOGO);
+        Files.createDirectories(uploadPath);
+
+        Path filePath = uploadPath.resolve(filename);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return Map.of("filename", filename);
+    }
+
+    @Override
+    public Map<String, String> handleFileUploadTeamBanner(MultipartFile file) throws IOException, FileEmptyException {
+        if (file.isEmpty()) {
+            throw new FileEmptyException("File is empty");
+        }
+
+        String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+        Path uploadPath = Paths.get(UPLOAD_DIR_TEAM_BANNER);
         Files.createDirectories(uploadPath);
 
         Path filePath = uploadPath.resolve(filename);

@@ -17,6 +17,9 @@ public class TeamEntity {
     @Column(name = "team_logo", length = Integer.MAX_VALUE)
     private String teamLogo;
 
+    @Column(name = "team_banner", length = Integer.MAX_VALUE)
+    private String teamBanner;
+
     @Size(max = 50)
     @Column(name = "team_description", length = 50)
     private String teamDescription;
@@ -71,6 +74,15 @@ public class TeamEntity {
     @ColumnDefault("0")
     @Column(name = "team_loses")
     private Integer teamLoses = 0;
+
+
+    public String getTeamBanner() {
+        return teamBanner;
+    }
+
+    public void setTeamBanner(String teamBanner) {
+        this.teamBanner = teamBanner;
+    }
 
     public Integer getTeamLoses() {
         return teamLoses;

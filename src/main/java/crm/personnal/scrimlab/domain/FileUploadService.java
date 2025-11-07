@@ -9,5 +9,6 @@ import java.util.Map;
 
 @Service
 public interface FileUploadService {
-    Map<String, String> handleFileUpload(MultipartFile file) throws IOException, FileEmptyException;
+    Map<String, String> handleFileUploadTeamLogo(MultipartFile file) throws IOException, FileEmptyException;
+    Map<String, String> handleFileUploadTeamBanner(MultipartFile file) throws IOException, FileEmptyException;
 }

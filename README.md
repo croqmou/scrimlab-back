@@ -6,7 +6,7 @@ dans le dossier src/main/resources/db :
 
 `` sudo docker build -t scrimlab-database . ``
 
-`` sudo docker run -d -p 5432:5432 --name scrimlab-database scrimlab-databas  ``
+`` sudo docker run -d -p 5432:5432 --name scrimlab-database scrimlab-database  ``
 
 ### lancement de la DB :
 

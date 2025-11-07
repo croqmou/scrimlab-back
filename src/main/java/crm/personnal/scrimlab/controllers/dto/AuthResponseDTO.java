@@ -1,6 +1,5 @@
 package crm.personnal.scrimlab.controllers.dto;
 
-// dto/AuthResponse.java
 public class AuthResponseDTO {
     private String token;
     private PlayerDTO player;

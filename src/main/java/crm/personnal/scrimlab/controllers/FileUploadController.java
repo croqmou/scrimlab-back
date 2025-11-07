@@ -14,14 +14,19 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/files")
+@RequestMapping("/files/upload")
 public class FileUploadController {
 
     @Autowired
     public FileUploadService fileUploadService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException, FileEmptyException { //TODO modifier le nom et le lien pour que ca soit juste pour les teams
-        return ResponseEntity.ok(fileUploadService.handleFileUpload(file));
+    @PostMapping("/team-logo")
+    public ResponseEntity<Map<String, String>> handleFileUploadTeamLogo(@RequestParam("file") MultipartFile file) throws IOException, FileEmptyException { //TODO modifier le nom et le lien pour que ca soit juste pour les teams
+        return ResponseEntity.ok(fileUploadService.handleFileUploadTeamLogo(file));
+    }
+
+    @PostMapping("/team-banner")
+    public ResponseEntity<Map<String, String>> handleFileUploadTeamBanner(@RequestParam("file") MultipartFile file) throws IOException, FileEmptyException { //TODO modifier le nom et le lien pour que ca soit juste pour les teams
+        return ResponseEntity.ok(fileUploadService.handleFileUploadTeamBanner(file));
     }
 }

@@ -25,13 +25,15 @@ public class AuthServiceImpl implements AuthService {
     private final PlayerEntityMapper playerEntityMapper;
     private final PlayerMapper playerMapper;
     private final JwtUtil jwtUtil;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(TokenBlacklistService tokenBlacklistService, PlayerRepository playerRepository, PlayerEntityMapper playerEntityMapper, PlayerMapper playerMapper, JwtUtil jwtUtil) {
+    public AuthServiceImpl(TokenBlacklistService tokenBlacklistService, PlayerRepository playerRepository, PlayerEntityMapper playerEntityMapper, PlayerMapper playerMapper, JwtUtil jwtUtil, BCryptPasswordEncoder passwordEncoder) {
         this.tokenBlacklistService = tokenBlacklistService;
         this.playerRepository = playerRepository;
         this.playerEntityMapper = playerEntityMapper;
         this.playerMapper = playerMapper;
         this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -39,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponseDTO login(PlayerDTO playerDTO) throws LoginOrPasswordIncorrectException {
         Optional<PlayerEntity> player = playerRepository.findByEmail(playerDTO.email());
 
-        if (player.isEmpty() || !new BCryptPasswordEncoder().matches(playerDTO.pwd(), player.get().getPwd())) {
+        if (player.isEmpty() || !passwordEncoder.matches(playerDTO.pwd(), player.get().getPwd())) {
             throw new LoginOrPasswordIncorrectException("Email or password incorrect");
         }
 

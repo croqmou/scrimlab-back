@@ -19,6 +19,7 @@ public class TeamEntityMapper implements Mapper<TeamEntity, TeamBO> {
         return new TeamBO(
                 teamEntity.getTeamName(),
                 teamEntity.getTeamLogo(),
+                teamEntity.getTeamBanner(),
                 teamEntity.getTeamDescription(),
                 playerEntityMapper.mapToBO(teamEntity.getCaptain()),
                 teamEntity.getPlayerEntityTwo() == null ? null : playerEntityMapper.mapToBO(teamEntity.getPlayerEntityTwo()),
@@ -40,6 +41,7 @@ public class TeamEntityMapper implements Mapper<TeamEntity, TeamBO> {
 
         newTeamEntity.setTeamName(bo.getTeamName());
         newTeamEntity.setTeamLogo(bo.getTeamLogo());
+        newTeamEntity.setTeamBanner(bo.getTeamBanner());
         newTeamEntity.setTeamDescription(bo.getTeamDescription());
         newTeamEntity.setCaptain(null);
         newTeamEntity.setPlayerTwo(null);

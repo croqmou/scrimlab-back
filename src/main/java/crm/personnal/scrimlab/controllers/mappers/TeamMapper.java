@@ -18,6 +18,7 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
         return new TeamBO(
                 entity.teamName(),
                 entity.teamLogo(),
+                entity.teamBanner(),
                 entity.teamDescription(),
                 playerMapper.mapToBO(new PlayerDTO(null, null, entity.captain(), null, false,0,0,0, 0, 0, 0)),
                 playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityTwo(), null, false,0,0,0, 0, 0, 0)),
@@ -38,6 +39,7 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
         return new TeamDTO(
                 teamBO.getTeamName(),
                 teamBO.getTeamLogo(),
+                teamBO.getTeamBanner(),
                 teamBO.getTeamDescription(),
                 teamBO.getCaptain() == null ? null : teamBO.getCaptain().getEmail(),
                 teamBO.getPlayerEntityTwo() == null ? null : teamBO.getPlayerEntityTwo().getEmail(),

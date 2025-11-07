@@ -55,6 +55,22 @@ public class PlayerEntity {
     @Column(name = "player_loses")
     private Integer playerLoses = 0;
 
+    public PlayerEntity(String username, String pwd, String email, String pp, Boolean admin, Integer rankingPoints1s, Integer rankingPoints2s, Integer rankingPoints3s, Integer playerGoals, Integer playerWins, Integer playerLoses) {
+        this.username = username;
+        this.pwd = pwd;
+        this.email = email;
+        this.pp = pp;
+        this.admin = admin;
+        this.rankingPoints1s = rankingPoints1s;
+        this.rankingPoints2s = rankingPoints2s;
+        this.rankingPoints3s = rankingPoints3s;
+        this.playerGoals = playerGoals;
+        this.playerWins = playerWins;
+        this.playerLoses = playerLoses;
+    }
+
+    public PlayerEntity(){}
+
     public Integer getPlayerLoses() {
         return playerLoses;
     }

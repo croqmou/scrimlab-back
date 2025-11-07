@@ -44,6 +44,7 @@ CONSTRAINT fk_ban FOREIGN KEY (playerEntity) REFERENCES Player(email) ON UPDATE 
 CREATE TABLE Team(
 team_name VARCHAR(26) NOT NULL PRIMARY KEY,
 team_logo TEXT,
+team_banner TEXT,
 team_description VARCHAR(50),
 captain TEXT,
 player_two TEXT,
