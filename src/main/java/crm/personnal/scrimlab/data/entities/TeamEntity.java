@@ -76,6 +76,8 @@ public class TeamEntity {
     private Integer teamLoses = 0;
 
 
+
+
     public String getTeamBanner() {
         return teamBanner;
     }
