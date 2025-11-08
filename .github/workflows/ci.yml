@@ -1,0 +1,91 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: 🧪 Run Tests
+    runs-on: ubuntu-latest
+
+    env:
+      MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+      SONAR_PROJECT_KEY: GDS-BACK
+      SONAR_PROJECT_NAME: GDS-BACK
+
+    steps:
+      # 1️⃣ Checkout du code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Cache Maven (équivalent au "cache:" GitLab)
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: .m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # 3️⃣ Setup Java + Maven
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # 4️⃣ Lancer les tests avec Maven
+      - name: Run Maven tests
+        run: mvn --batch-mode --errors --fail-at-end test
+
+      # 5️⃣ Lire le rapport Jacoco et afficher la couverture
+      - name: Show Jacoco coverage summary
+        run: |
+          if [ -f target/site/jacoco/jacoco.csv ]; then
+            awk -F"," '{ instructions += $4 + $5; covered += $5; } END \
+            { printf "\n📊 Instruction Coverage: %3.2f%%\n", 100*covered/instructions }' \
+            target/site/jacoco/jacoco.csv
+          else
+            echo "⚠️ Jacoco report not found"
+          fi
+
+      # 6️⃣ Sauvegarder les artefacts
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-artifacts
+          path: |
+            target/*.jar
+            target/site/jacoco
+          retention-days: 7
+
+  sonar:
+    name: 🔍 SonarQube Analysis
+    runs-on: ubuntu-latest
+    needs: test  # Attend la fin du job test
+
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # ⚙️ Lancement de SonarQube via GitHub Action officielle
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v3
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
