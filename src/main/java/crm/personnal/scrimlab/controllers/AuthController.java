@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
-    private final TokenBlacklistService tokenBlacklistService;
 
     // ✅ Injection par constructeur
-    public AuthController(AuthService authService, TokenBlacklistService tokenBlacklistService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @PostMapping("/login")
