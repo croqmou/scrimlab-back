@@ -5,6 +5,7 @@ import crm.personnal.scrimlab.data.entities.TeamEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.data.repositories.TeamRepository;
 import crm.personnal.scrimlab.domain.TeamService;
+import crm.personnal.scrimlab.domain.bo.PlayerBO;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.domain.mappers.TeamEntityMapper;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -46,5 +49,11 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Page<TeamBO> getAllTeams(Pageable pageable) {
         return teamRepository.findAll(pageable).map(teamEntityMapper::mapToBO);
+    }
+
+    @Override
+    public List<TeamBO> getAllTeamsByPlayer(String email) {
+        PlayerEntity playerEntity = playerRepository.getReferenceById(email);
+        return teamRepository.findAllByPlayerInAnyRole(playerEntity).stream().map(teamEntityMapper::mapToBO).toList();
     }
 }

@@ -3,8 +3,9 @@ package crm.personnal.scrimlab.domain.impl;
 import crm.personnal.scrimlab.config.domain.TokenBlacklistService;
 import crm.personnal.scrimlab.config.utils.JwtUtil;
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
-import crm.personnal.scrimlab.controllers.mappers.PlayerMapper;
+import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
+import crm.personnal.scrimlab.controllers.mappers.external.OutputPlayerMapper;
+import crm.personnal.scrimlab.controllers.mappers.internal.InputPlayerMapper;
 import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.domain.AuthService;
@@ -23,30 +24,32 @@ public class AuthServiceImpl implements AuthService {
     private final TokenBlacklistService  tokenBlacklistService;
     private final PlayerRepository playerRepository;
     private final PlayerEntityMapper playerEntityMapper;
-    private final PlayerMapper playerMapper;
+    private final InputPlayerMapper inputPlayerMapper;
+    private final OutputPlayerMapper outputPlayerMapper;
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(TokenBlacklistService tokenBlacklistService, PlayerRepository playerRepository, PlayerEntityMapper playerEntityMapper, PlayerMapper playerMapper, JwtUtil jwtUtil, BCryptPasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(TokenBlacklistService tokenBlacklistService, PlayerRepository playerRepository, PlayerEntityMapper playerEntityMapper, InputPlayerMapper inputPlayerMapper, OutputPlayerMapper outputPlayerMapper, JwtUtil jwtUtil, BCryptPasswordEncoder passwordEncoder) {
         this.tokenBlacklistService = tokenBlacklistService;
         this.playerRepository = playerRepository;
         this.playerEntityMapper = playerEntityMapper;
-        this.playerMapper = playerMapper;
+        this.inputPlayerMapper = inputPlayerMapper;
+        this.outputPlayerMapper = outputPlayerMapper;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
     }
 
 
     @Override
-    public AuthResponseDTO login(PlayerDTO playerDTO) throws LoginOrPasswordIncorrectException {
-        Optional<PlayerEntity> player = playerRepository.findByEmail(playerDTO.email());
+    public AuthResponseDTO login(InputPlayerDTO inputPlayerDTO) throws LoginOrPasswordIncorrectException {
+        Optional<PlayerEntity> player = playerRepository.findByEmail(inputPlayerDTO.email());
 
-        if (player.isEmpty() || !passwordEncoder.matches(playerDTO.pwd(), player.get().getPwd())) {
+        if (player.isEmpty() || !passwordEncoder.matches(inputPlayerDTO.pwd(), player.get().getPwd())) {
             throw new LoginOrPasswordIncorrectException("Email or password incorrect");
         }
 
-        String token = jwtUtil.generateToken(playerDTO.email());
-        return new AuthResponseDTO(token, playerDTO);
+        String token = jwtUtil.generateToken(inputPlayerDTO.email());
+        return new AuthResponseDTO(token, outputPlayerMapper.mapFromBO(playerEntityMapper.mapToBO(player.get())));
     }
 
     @Override
@@ -60,21 +63,21 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponseDTO register(PlayerDTO playerDTO) throws PlayerAlreadyExistsException {
-        boolean playerAlreadyExists = playerRepository.existsById(playerDTO.email());
+    public AuthResponseDTO register(InputPlayerDTO inputPlayerDTO) throws PlayerAlreadyExistsException {
+        boolean playerAlreadyExists = playerRepository.existsById(inputPlayerDTO.email());
 
         if (playerAlreadyExists) {
             throw new PlayerAlreadyExistsException("Player already exists");
         }
 
-        String hashedPassword = new BCryptPasswordEncoder().encode(playerDTO.pwd());
+        String hashedPassword = new BCryptPasswordEncoder().encode(inputPlayerDTO.pwd());
 
-        PlayerBO playerBO = playerMapper.mapToBO(playerDTO);
+        PlayerBO playerBO = inputPlayerMapper.mapToBO(inputPlayerDTO);
         playerBO.setPwd(hashedPassword);
 
         playerRepository.save(playerEntityMapper.mapFromBO(playerBO));
 
-        String token = jwtUtil.generateToken(playerDTO.email());
-        return new AuthResponseDTO(token, playerDTO);
+        String token = jwtUtil.generateToken(inputPlayerDTO.email());
+        return new AuthResponseDTO(token, outputPlayerMapper.mapFromBO(playerBO));
     }
 }

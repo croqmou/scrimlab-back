@@ -1,10 +1,12 @@
 package crm.personnal.scrimlab.controllers.dto;
 
+import crm.personnal.scrimlab.controllers.dto.external.OutputPlayerDTO;
+
 public class AuthResponseDTO {
     private String token;
-    private PlayerDTO player;
+    private OutputPlayerDTO player;
 
-    public AuthResponseDTO(String token, PlayerDTO player) {
+    public AuthResponseDTO(String token, OutputPlayerDTO player) {
         this.token = token;
         this.player = player;
     }
@@ -13,7 +15,7 @@ public class AuthResponseDTO {
         return token;
     }
 
-    public PlayerDTO getPlayer() {
+    public OutputPlayerDTO getPlayer() {
         return player;
     }
 }

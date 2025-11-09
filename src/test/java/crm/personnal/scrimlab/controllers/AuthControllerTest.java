@@ -1,7 +1,7 @@
 package crm.personnal.scrimlab.controllers;
 
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
+import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
 import crm.personnal.scrimlab.domain.AuthService;
 import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
 import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
@@ -32,16 +32,16 @@ public class AuthControllerTest {
         @Test
         void should_login_and_response_should_be_ok() throws LoginOrPasswordIncorrectException {
             //GIVEN
-            PlayerDTO mockedPlayerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO mockedInputPlayerDTO = MockedData.mockedPlayerDTO();
             AuthResponseDTO mockedAuthResponseDTO = MockedData.mockedAuthResponseDTO();
-            doReturn(mockedAuthResponseDTO).when(mockedAuthService).login(mockedPlayerDTO);
+            doReturn(mockedAuthResponseDTO).when(mockedAuthService).login(mockedInputPlayerDTO);
 
             //WHEN
-            ResponseEntity<AuthResponseDTO> response = authController.login(mockedPlayerDTO);
+            ResponseEntity<AuthResponseDTO> response = authController.login(mockedInputPlayerDTO);
 
             //THEN
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-            verify(mockedAuthService).login(mockedPlayerDTO);
+            verify(mockedAuthService).login(mockedInputPlayerDTO);
         }
     }
 
@@ -68,23 +68,23 @@ public class AuthControllerTest {
         @Test
         void should_register_and_response_should_be_ok() throws PlayerAlreadyExistsException {
             //GIVEN
-            PlayerDTO mockedPlayerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO mockedInputPlayerDTO = MockedData.mockedPlayerDTO();
             AuthResponseDTO mockedAuthResponseDTO = MockedData.mockedAuthResponseDTO();
-            doReturn(mockedAuthResponseDTO).when(mockedAuthService).register(mockedPlayerDTO);
+            doReturn(mockedAuthResponseDTO).when(mockedAuthService).register(mockedInputPlayerDTO);
 
             //WHEN
-            ResponseEntity<AuthResponseDTO> response = authController.register(mockedPlayerDTO);
+            ResponseEntity<AuthResponseDTO> response = authController.register(mockedInputPlayerDTO);
 
             //THEN
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-            verify(mockedAuthService).register(mockedPlayerDTO);
+            verify(mockedAuthService).register(mockedInputPlayerDTO);
         }
     }
 
 
     private class MockedData {
-        public static PlayerDTO mockedPlayerDTO(){
-            return new PlayerDTO(
+        public static InputPlayerDTO mockedPlayerDTO(){
+            return new InputPlayerDTO(
                     "CRM",
                     "pwd",
                     "test@scrimlab.com",

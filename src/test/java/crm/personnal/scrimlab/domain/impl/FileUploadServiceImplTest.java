@@ -2,7 +2,7 @@ package crm.personnal.scrimlab.domain.impl;
 
 import crm.personnal.scrimlab.config.domain.TokenBlacklistService;
 import crm.personnal.scrimlab.config.utils.JwtUtil;
-import crm.personnal.scrimlab.controllers.mappers.PlayerMapper;
+import crm.personnal.scrimlab.controllers.mappers.internal.InputPlayerMapper;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.exceptions.FileEmptyException;
@@ -33,7 +33,7 @@ public class FileUploadServiceImplTest {
     @Mock
     private PlayerEntityMapper mockedPlayerEntityMapper;
     @Mock
-    private PlayerMapper mockedPlayerMapper;
+    private InputPlayerMapper mockedInputPlayerMapper;
     @Mock
     private JwtUtil mockedJwtUtil;
     @Mock

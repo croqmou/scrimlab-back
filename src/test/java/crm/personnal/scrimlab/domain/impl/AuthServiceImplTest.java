@@ -3,8 +3,8 @@ package crm.personnal.scrimlab.domain.impl;
 import crm.personnal.scrimlab.config.domain.TokenBlacklistService;
 import crm.personnal.scrimlab.config.utils.JwtUtil;
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
-import crm.personnal.scrimlab.controllers.mappers.PlayerMapper;
+import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
+import crm.personnal.scrimlab.controllers.mappers.internal.InputPlayerMapper;
 import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
 import crm.personnal.scrimlab.domain.bo.PlayerBO;
@@ -39,7 +39,7 @@ public class AuthServiceImplTest {
     @Mock
     private PlayerEntityMapper mockedPlayerEntityMapper;
     @Mock
-    private PlayerMapper mockedPlayerMapper;
+    private InputPlayerMapper mockedInputPlayerMapper;
     @Mock
     private JwtUtil mockedJwtUtil;
     @Mock
@@ -56,14 +56,14 @@ public class AuthServiceImplTest {
         void should_login() throws LoginOrPasswordIncorrectException {
             //GIVEN
             PlayerEntity playerEntity = MockedData.mockedPlayerEntity();
-            PlayerDTO playerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO inputPlayerDTO = MockedData.mockedPlayerDTO();
             doReturn(Optional.of(playerEntity)).when(mockedPlayerRepository).findByEmail(anyString());
             doReturn("token").when(mockedJwtUtil).generateToken(anyString());
             doReturn(true).when(passwordEncoder).matches(anyString(),anyString());
 
             AuthResponseDTO authResponseDTO = MockedData.mockedAuthResponseDTO();
             //WHEN
-            AuthResponseDTO expectedAuthResponseDTO = authService.login(playerDTO);
+            AuthResponseDTO expectedAuthResponseDTO = authService.login(inputPlayerDTO);
             //THEN
             assertThat(expectedAuthResponseDTO).usingRecursiveComparison()
                     .isEqualTo(authResponseDTO);
@@ -73,9 +73,9 @@ public class AuthServiceImplTest {
         void should_throw_login_or_password_incorrect_exception_if_player_no_exists() {
             //GIVEN
             doReturn(Optional.empty()).when(mockedPlayerRepository).findByEmail(anyString());
-            PlayerDTO playerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO inputPlayerDTO = MockedData.mockedPlayerDTO();
             //WHEN THEN
-            assertThrows(LoginOrPasswordIncorrectException.class, () -> authService.login(playerDTO));
+            assertThrows(LoginOrPasswordIncorrectException.class, () -> authService.login(inputPlayerDTO));
         }
 
         @Test
@@ -84,9 +84,9 @@ public class AuthServiceImplTest {
             PlayerEntity playerEntity = MockedData.mockedPlayerEntity();
             playerEntity.setPwd("wrong password");
             doReturn(Optional.of(playerEntity)).when(mockedPlayerRepository).findByEmail(anyString());
-            PlayerDTO playerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO inputPlayerDTO = MockedData.mockedPlayerDTO();
             //WHEN THEN
-            assertThrows(LoginOrPasswordIncorrectException.class, () -> authService.login(playerDTO));
+            assertThrows(LoginOrPasswordIncorrectException.class, () -> authService.login(inputPlayerDTO));
         }
     }
 
@@ -113,16 +113,16 @@ public class AuthServiceImplTest {
         @Test
         void should_register() throws PlayerAlreadyExistsException {
             //GIVEN
-            PlayerDTO playerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO inputPlayerDTO = MockedData.mockedPlayerDTO();
             doReturn(false).when(mockedPlayerRepository).existsById(anyString());
             doReturn("token").when(mockedJwtUtil).generateToken(anyString());
-            doReturn(MockedData.mockedPlayerBO()).when(mockedPlayerMapper).mapToBO(any(PlayerDTO.class));
+            doReturn(MockedData.mockedPlayerBO()).when(mockedInputPlayerMapper).mapToBO(any(InputPlayerDTO.class));
             doReturn(MockedData.mockedPlayerEntity()).when(mockedPlayerEntityMapper).mapFromBO(any(PlayerBO.class));
             doReturn(MockedData.mockedPlayerEntity()).when(mockedPlayerRepository).save(any(PlayerEntity.class));
 
             AuthResponseDTO authResponseDTO = MockedData.mockedAuthResponseDTO();
             //WHEN
-            AuthResponseDTO expectedAuthResponseDTO = authService.register(playerDTO);
+            AuthResponseDTO expectedAuthResponseDTO = authService.register(inputPlayerDTO);
             //THEN
             assertThat(expectedAuthResponseDTO).usingRecursiveComparison()
                     .isEqualTo(authResponseDTO);
@@ -133,9 +133,9 @@ public class AuthServiceImplTest {
         void should_throw_player_already_exists_exception_if_player_exists() {
             //GIVEN
             doReturn(true).when(mockedPlayerRepository).existsById(anyString());
-            PlayerDTO playerDTO = MockedData.mockedPlayerDTO();
+            InputPlayerDTO inputPlayerDTO = MockedData.mockedPlayerDTO();
             //WHEN THEN
-            assertThrows(PlayerAlreadyExistsException.class, () -> authService.register(playerDTO));
+            assertThrows(PlayerAlreadyExistsException.class, () -> authService.register(inputPlayerDTO));
         }
     }
 
@@ -158,8 +158,8 @@ public class AuthServiceImplTest {
             );
         }
 
-        public static PlayerDTO mockedPlayerDTO() {
-            return new PlayerDTO(
+        public static InputPlayerDTO mockedPlayerDTO() {
+            return new InputPlayerDTO(
                     "username",
                     "pwd",
                     "test@scrimlab.com",

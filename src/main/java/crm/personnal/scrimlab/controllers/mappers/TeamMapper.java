@@ -1,8 +1,9 @@
 package crm.personnal.scrimlab.controllers.mappers;
 
 import crm.personnal.scrimlab.config.domain.Mapper;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
+import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
 import crm.personnal.scrimlab.controllers.dto.TeamDTO;
+import crm.personnal.scrimlab.controllers.mappers.internal.InputPlayerMapper;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
 
     @Autowired
-    private PlayerMapper playerMapper;
+    private InputPlayerMapper inputPlayerMapper;
 
     @Override
     public TeamBO mapToBO(TeamDTO entity) {
@@ -20,13 +21,13 @@ public class TeamMapper implements Mapper<TeamDTO, TeamBO> {
                 entity.teamLogo(),
                 entity.teamBanner(),
                 entity.teamDescription(),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.captain(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityTwo(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.playerEntityThree(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.sub(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.secondSub(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.coach(), null, false,0,0,0, 0, 0, 0)),
-                playerMapper.mapToBO(new PlayerDTO(null, null, entity.manager(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.captain(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.playerEntityTwo(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.playerEntityThree(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.sub(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.secondSub(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.coach(), null, false,0,0,0, 0, 0, 0)),
+                inputPlayerMapper.mapToBO(new InputPlayerDTO(null, null, entity.manager(), null, false,0,0,0, 0, 0, 0)),
                 entity.rankingPoints(),
                 entity.teamGoals(),
                 entity.teamWins(),

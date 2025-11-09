@@ -1,8 +1,7 @@
 package crm.personnal.scrimlab.controllers;
 
-import crm.personnal.scrimlab.config.domain.TokenBlacklistService;
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
+import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
 import crm.personnal.scrimlab.domain.AuthService;
 import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
 import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
@@ -22,8 +21,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody PlayerDTO playerDTO) throws LoginOrPasswordIncorrectException {
-        return ResponseEntity.ok(authService.login(playerDTO));
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody InputPlayerDTO inputPlayerDTO) throws LoginOrPasswordIncorrectException {
+        return ResponseEntity.ok(authService.login(inputPlayerDTO));
     }
 
     @PostMapping("/logout")
@@ -33,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody PlayerDTO playerDTO) throws PlayerAlreadyExistsException {
-        return ResponseEntity.ok(authService.register(playerDTO));
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody InputPlayerDTO inputPlayerDTO) throws PlayerAlreadyExistsException {
+        return ResponseEntity.ok(authService.register(inputPlayerDTO));
     }
 }

@@ -1,6 +1,7 @@
 package crm.personnal.scrimlab.controllers.mappers;
 
 import crm.personnal.scrimlab.controllers.dto.TeamDTO;
+import crm.personnal.scrimlab.controllers.mappers.internal.InputPlayerMapper;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 public class TeamMapperTest {
     @Mock
-    private PlayerMapper playerMapper;
+    private InputPlayerMapper inputPlayerMapper;
 
     @InjectMocks
     private TeamMapper teamMapper;

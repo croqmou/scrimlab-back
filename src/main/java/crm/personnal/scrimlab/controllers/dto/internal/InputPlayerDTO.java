@@ -1,9 +1,6 @@
-package crm.personnal.scrimlab.controllers.dto;
+package crm.personnal.scrimlab.controllers.dto.internal;
 
-import jakarta.persistence.Column;
-import org.hibernate.annotations.ColumnDefault;
-
-public record PlayerDTO (
+public record InputPlayerDTO(
         String username,
         String pwd,
         String email,
