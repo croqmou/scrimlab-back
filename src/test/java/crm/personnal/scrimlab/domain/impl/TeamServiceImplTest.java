@@ -1,6 +1,5 @@
 package crm.personnal.scrimlab.domain.impl;
 
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
 import crm.personnal.scrimlab.data.entities.PlayerEntity;
 import crm.personnal.scrimlab.data.entities.TeamEntity;
 import crm.personnal.scrimlab.data.repositories.PlayerRepository;
@@ -9,7 +8,6 @@ import crm.personnal.scrimlab.domain.bo.PlayerBO;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import crm.personnal.scrimlab.domain.mappers.TeamEntityMapper;
 import crm.personnal.scrimlab.exceptions.CaptainNotFoundException;
-import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
 import crm.personnal.scrimlab.exceptions.TeamAlreadyExistsException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

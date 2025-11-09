@@ -1,13 +1,8 @@
 package crm.personnal.scrimlab.controllers;
 
-import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
-import crm.personnal.scrimlab.domain.AuthService;
 import crm.personnal.scrimlab.domain.FileUploadService;
 import crm.personnal.scrimlab.exceptions.FileEmptyException;
 import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
-import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,18 +1,11 @@
 package crm.personnal.scrimlab.controllers;
 
-import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
-import crm.personnal.scrimlab.controllers.dto.PlayerDTO;
 import crm.personnal.scrimlab.controllers.dto.TeamDTO;
 import crm.personnal.scrimlab.controllers.mappers.TeamMapper;
-import crm.personnal.scrimlab.domain.AuthService;
 import crm.personnal.scrimlab.domain.TeamService;
-import crm.personnal.scrimlab.domain.bo.PlayerBO;
 import crm.personnal.scrimlab.domain.bo.TeamBO;
 import crm.personnal.scrimlab.exceptions.CaptainNotFoundException;
-import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
-import crm.personnal.scrimlab.exceptions.PlayerAlreadyExistsException;
 import crm.personnal.scrimlab.exceptions.TeamAlreadyExistsException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +23,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class TeamControllerTest {
