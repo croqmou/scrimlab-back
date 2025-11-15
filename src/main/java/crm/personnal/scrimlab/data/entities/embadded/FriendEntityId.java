@@ -1,4 +1,4 @@
-package crm.personnal.scrimlab.data.entities;
+package crm.personnal.scrimlab.data.entities.embadded;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -9,15 +9,15 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class PlayertitleEntityId implements Serializable {
-    private static final long serialVersionUID = 2189096570439358136L;
+public class FriendEntityId implements Serializable {
+    private static final long serialVersionUID = -2016080749368922723L;
     @NotNull
     @Column(name = "playerentity", nullable = false, length = Integer.MAX_VALUE)
     private String playerentity;
 
     @NotNull
-    @Column(name = "title", nullable = false, length = Integer.MAX_VALUE)
-    private String title;
+    @Column(name = "friend", nullable = false, length = Integer.MAX_VALUE)
+    private String friend;
 
     public String getPlayerentity() {
         return playerentity;
@@ -27,26 +27,26 @@ public class PlayertitleEntityId implements Serializable {
         this.playerentity = playerentity;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFriend() {
+        return friend;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFriend(String friend) {
+        this.friend = friend;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PlayertitleEntityId entity = (PlayertitleEntityId) o;
-        return Objects.equals(this.title, entity.title) &&
+        FriendEntityId entity = (FriendEntityId) o;
+        return Objects.equals(this.friend, entity.friend) &&
                 Objects.equals(this.playerentity, entity.playerentity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, playerentity);
+        return Objects.hash(friend, playerentity);
     }
 
 }

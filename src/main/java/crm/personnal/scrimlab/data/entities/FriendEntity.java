@@ -1,5 +1,6 @@
 package crm.personnal.scrimlab.data.entities;
 
+import crm.personnal.scrimlab.data.entities.embadded.FriendEntityId;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

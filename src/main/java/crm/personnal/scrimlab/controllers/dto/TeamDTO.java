@@ -1,8 +1,5 @@
 package crm.personnal.scrimlab.controllers.dto;
 
-import jakarta.persistence.Column;
-import org.hibernate.annotations.ColumnDefault;
-
 public record TeamDTO(
         String teamName,
         String teamLogo,

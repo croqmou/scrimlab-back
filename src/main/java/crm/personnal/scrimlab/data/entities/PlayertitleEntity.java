@@ -1,5 +1,6 @@
 package crm.personnal.scrimlab.data.entities;
 
+import crm.personnal.scrimlab.data.entities.embadded.PlayertitleEntityId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.ColumnDefault;
