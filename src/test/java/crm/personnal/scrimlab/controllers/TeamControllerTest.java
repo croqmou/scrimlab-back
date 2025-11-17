@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -101,7 +102,45 @@ public class TeamControllerTest {
             verify(mockedTeamService).getAllTeams(PageRequest.of(0, 2));
             IntStream.range(0, teamBOS.size())
                     .forEach(index -> verify(mockedTeamMapper).mapFromBO(teamBOS.get(index)));
-    }
+        }
+
+
+        @Test
+        void should_get_all_teams_by_player_and_response_should_be_ok() {
+            //GIVEN
+            List<TeamBO> teamBOS = List.of(MockedData.mockedTeamBO());
+
+            List<TeamDTO> expectedTeamDTOS = List.of(new TeamDTO(
+                    "Team Alpha",
+                    "alpha-logo.png",
+                    "alpha-banner.jpg",
+                    "Best team in the league",
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                    1500,
+                    100,
+                    25,
+                    5));
+
+            doReturn(teamBOS).when(mockedTeamService).getAllTeamsByPlayer(anyString());
+            IntStream.range(0, teamBOS.size())
+                    .forEach(index -> doReturn(expectedTeamDTOS.get(index)).when(mockedTeamMapper).mapFromBO(teamBOS.get(index)));
+
+            //WHEN
+            ResponseEntity<List<TeamDTO>> response = teamController.getAllTeamsByPlayer("test@scrimlab.com");
+
+            //THEN
+            assertThat(response.getBody()).usingRecursiveComparison().isEqualTo(expectedTeamDTOS);
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+            verify(mockedTeamService).getAllTeamsByPlayer("test@scrimlab.com");
+            IntStream.range(0, teamBOS.size())
+                    .forEach(index -> verify(mockedTeamMapper).mapFromBO(teamBOS.get(index)));
+        }
 }
 
 

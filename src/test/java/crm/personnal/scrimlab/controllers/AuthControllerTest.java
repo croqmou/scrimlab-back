@@ -1,6 +1,7 @@
 package crm.personnal.scrimlab.controllers;
 
 import crm.personnal.scrimlab.controllers.dto.AuthResponseDTO;
+import crm.personnal.scrimlab.controllers.dto.external.OutputPlayerDTO;
 import crm.personnal.scrimlab.controllers.dto.internal.InputPlayerDTO;
 import crm.personnal.scrimlab.domain.AuthService;
 import crm.personnal.scrimlab.exceptions.LoginOrPasswordIncorrectException;
@@ -99,10 +100,25 @@ public class AuthControllerTest {
             );
         }
 
+        public static OutputPlayerDTO mockedOutputPlayerDTO() {
+            return new OutputPlayerDTO(
+                    "username",
+                    "test@scrimlab.com",
+                    "unknown.png",
+                    false,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+            );
+        }
+
         public static AuthResponseDTO mockedAuthResponseDTO(){
             return new AuthResponseDTO(
                     "token",
-                    mockedPlayerDTO()
+                    mockedOutputPlayerDTO()
             );
         }
     }

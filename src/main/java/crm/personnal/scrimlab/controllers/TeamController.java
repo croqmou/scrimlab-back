@@ -41,7 +41,7 @@ public class TeamController {
 
     @GetMapping(path = "/getAllByPlayer/{playerEmail}")
     public ResponseEntity<List<TeamDTO>> getAllTeamsByPlayer(@PathVariable String playerEmail) {
-        return ResponseEntity.ok(
+        return ResponseEntity.status(HttpStatus.CREATED).body(
                 teamService.getAllTeamsByPlayer(playerEmail)
                         .stream()
                         .map(teamMapper::mapFromBO)

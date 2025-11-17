@@ -77,6 +77,37 @@ public class TeamServiceImplTest {
             assertThat(expectedPageBOs).usingRecursiveComparison()
                     .isEqualTo(pageBOs);
         }
+
+        @Test
+        void should_return_all_teams_by_player() {
+            //GIVEN
+            TeamEntity team1 = MockedData.mockedTeamEntity1();
+            TeamEntity team2 = MockedData.mockedTeamEntity2();
+            TeamBO teamBO1 = MockedData.mockedTeamBO1();
+            TeamBO teamBO2 = MockedData.mockedTeamBO2();
+
+            PlayerEntity playerEntity = MockedData.mockedPlayerEntity();
+
+            List<TeamEntity> teamEntities = Arrays.asList(team1, team2);
+            List<TeamBO> teamBOs = Arrays.asList(teamBO1, teamBO2);
+            doReturn(playerEntity).when(mockedPlayerRepository).getReferenceById(anyString());
+            doReturn(teamEntities).when(mockedTeamRepository).findAllByPlayerInAnyRole(playerEntity);
+            when(mockedTeamEntityMapper.mapToBO(team1)).thenReturn(teamBO1);
+            when(mockedTeamEntityMapper.mapToBO(team2)).thenReturn(teamBO2);
+            //WHEN
+            List<TeamBO> expectedListBOs = teamService.getAllTeamsByPlayer("test@scrimlab.com");
+            //THEN
+            assertThat(expectedListBOs)
+                    .usingRecursiveComparison()
+                    .isEqualTo(Arrays.asList(teamBO1,teamBO2));
+
+            verify(mockedTeamEntityMapper).mapToBO(team1);
+            verify(mockedTeamEntityMapper).mapToBO(team2);
+            verify(mockedPlayerRepository).getReferenceById("test@scrimlab.com");
+            verify(mockedTeamRepository).findAllByPlayerInAnyRole(playerEntity);
+            assertThat(expectedListBOs).usingRecursiveComparison()
+                    .isEqualTo(teamBOs);
+        }
     }
 
 
