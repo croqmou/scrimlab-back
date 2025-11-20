@@ -34,7 +34,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/**",
                                 "/files/**",
-                                "/teams/getAll"
+                                "/teams/getAll",
+                                "/teams/*"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

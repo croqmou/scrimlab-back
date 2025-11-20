@@ -11,6 +11,7 @@ import crm.personnal.scrimlab.domain.mappers.PlayerEntityMapper;
 import crm.personnal.scrimlab.domain.mappers.TeamEntityMapper;
 import crm.personnal.scrimlab.exceptions.CaptainNotFoundException;
 import crm.personnal.scrimlab.exceptions.TeamAlreadyExistsException;
+import crm.personnal.scrimlab.exceptions.TeamNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +50,11 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Page<TeamBO> getAllTeams(Pageable pageable) {
         return teamRepository.findAll(pageable).map(teamEntityMapper::mapToBO);
+    }
+
+    @Override
+    public TeamBO getTeamByTeamName(String teamName) throws TeamNotFoundException {
+        return teamEntityMapper.mapToBO(teamRepository.findById(teamName).orElseThrow(() -> new TeamNotFoundException("Team not found")));
     }
 
     @Override

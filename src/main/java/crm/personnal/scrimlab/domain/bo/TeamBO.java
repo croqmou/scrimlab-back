@@ -100,4 +100,25 @@ public class TeamBO implements BaseBO {
     public void setCaptain(PlayerBO captain) {
         this.captain = captain;
     }
+
+    @Override
+    public String toString() {
+        return "TeamBO{" +
+                "teamName='" + teamName + '\'' +
+                ", teamLogo='" + teamLogo + '\'' +
+                ", teamBanner='" + teamBanner + '\'' +
+                ", teamDescription='" + teamDescription + '\'' +
+                ", captain=" + captain +
+                ", playerEntityTwo=" + playerEntityTwo +
+                ", playerEntityThree=" + playerEntityThree +
+                ", sub=" + sub +
+                ", secondSub=" + secondSub +
+                ", coach=" + coach +
+                ", manager=" + manager +
+                ", rankingPoints=" + rankingPoints +
+                ", teamGoals=" + teamGoals +
+                ", teamWins=" + teamWins +
+                ", teamLoses=" + teamLoses +
+                '}';
+    }
 }
