@@ -7,4 +7,6 @@
 
     <!-- <include file="/db/changelog/db.changelog-main.xml"/> -->
     <include file="/db/changelog/local/create-prize-list-table.sql"/>
+    <include file="/db/changelog/local/add-players.sql"/>
+    <include file="/db/changelog/local/add-team.sql"/>
 </databaseChangeLog>
